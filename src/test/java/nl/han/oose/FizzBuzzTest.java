@@ -50,10 +50,9 @@ public class FizzBuzzTest {
 
     @Test
     void throwsExceptionIfTurnIsNegative() {
-        InvalidTurnException invalidTurnException = assertThrows(InvalidTurnException.class, () -> {
-            sut.say(-1);
-        });
-        assertEquals(-1, invalidTurnException.getTurn());
+        InvalidTurnException invalidTurnException =
+                assertThrows(InvalidTurnException.class, () -> sut.say(-1));
 
+        assertEquals(-1, invalidTurnException.getTurn());
     }
 }
