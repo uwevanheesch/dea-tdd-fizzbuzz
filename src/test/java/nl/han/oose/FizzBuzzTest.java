@@ -1,19 +1,19 @@
 package nl.han.oose;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class FizzBuzzTest {
 
     private FizzBuzz sut; // system under test
 
-    @Before
+    @BeforeEach
     public void setUp() {
         sut = new FizzBuzz();
     }
-
 
     @Test
     public void returnsFizzIfNumberIsMultipleOfThree() {
@@ -40,7 +40,7 @@ public class FizzBuzzTest {
         assertEquals("1", sut.say(1));
         assertEquals("2", sut.say(2));
         assertEquals("4", sut.say(4));
-        assertEquals("4", sut.say(7));
+        assertEquals("7", sut.say(7));
     }
 
     @Test
@@ -48,4 +48,12 @@ public class FizzBuzzTest {
         assertEquals("0", sut.say(0));
     }
 
+    @Test
+    void throwsExceptionIfTurnIsNegative() {
+        InvalidTurnException invalidTurnException = assertThrows(InvalidTurnException.class, () -> {
+            sut.say(-1);
+        });
+        assertEquals(-1, invalidTurnException.getTurn());
+
+    }
 }
