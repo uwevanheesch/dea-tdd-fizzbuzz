@@ -1,5 +1,6 @@
 package nl.han.oose;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -10,9 +11,15 @@ public class FizzBuzzTest {
 
     private FizzBuzz sut; // system under test
 
+
     @BeforeEach
     public void setUp() {
         sut = new FizzBuzz();
+    }
+
+    @AfterEach
+    void tearDown() {
+
     }
 
     @Test
@@ -21,6 +28,29 @@ public class FizzBuzzTest {
         assertEquals("Fizz", sut.say(6));
         assertEquals("Fizz", sut.say(9));
     }
+
+
+    @Test
+    void addsRandomNameToPlayersList() {
+        // arrange
+        NameGenerator nameGeneratorFake = new NameGenerator() {
+            @Override
+            public String generateRandomName() {
+                return "Uwe";
+            }
+        };
+
+        FizzBuzz sut = new FizzBuzz(nameGeneratorFake);
+
+        // act
+        sut.addRandomPlayer();
+
+        // assert
+        Player expectedPlayer = new Player("Uwe");
+        assertEquals(expectedPlayer, sut.players.get(0));
+    }
+
+
 
     @Test
     public void returnsBuzzIfNumberIsMultipleOfFive() {
